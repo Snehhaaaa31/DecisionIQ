@@ -1,0 +1,113 @@
+/* ================================
+   GLOBAL
+================================ */
+
+.stApp{
+    background:#0E1117;
+    color:white;
+}
+
+.block-container{
+    padding-top:2rem;
+    padding-left:4rem;
+    padding-right:4rem;
+}
+
+/* ================================
+   HERO
+================================ */
+
+.hero{
+    text-align:center;
+    padding:50px 20px;
+}
+
+.hero h1{
+    font-size:64px;
+    font-weight:800;
+    color:white;
+    margin-bottom:10px;
+}
+
+.hero h3{
+    color:#00C2FF;
+    font-size:30px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:20px;
+    color:#CFCFCF;
+    max-width:900px;
+    margin:auto;
+    line-height:1.8;
+}
+
+/* ================================
+   BUTTON
+================================ */
+
+.stButton button{
+    background:linear-gradient(90deg,#00C2FF,#0088FF);
+    color:white;
+    border:none;
+    border-radius:12px;
+    height:55px;
+    font-size:18px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.stButton button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(0,194,255,.35);
+}
+
+/* ================================
+   FEATURE CARDS
+================================ */
+
+.feature-card{
+
+    background:#18283D;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    margin:12px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.35s;
+
+    text-align:center;
+
+    min-height:170px;
+}
+
+.feature-card:hover{
+
+    transform:translateY(-8px);
+
+    border:1px solid #00C2FF;
+
+    box-shadow:0px 10px 30px rgba(0,194,255,.25);
+
+}
+
+.feature-card h3{
+
+    color:#00C2FF;
+
+    margin-bottom:15px;
+}
+
+.feature-card p{
+
+    color:#D8D8D8;
+
+    font-size:16px;
+
+    line-height:1.6;
+}
