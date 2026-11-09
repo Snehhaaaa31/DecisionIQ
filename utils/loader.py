@@ -1,16 +1,27 @@
+
 import pandas as pd
+import streamlit as st
+from io import BytesIO
 
 
-def load_dataset(uploaded_file):
-    """
-    Load CSV or Excel dataset.
-    """
+@st.cache_data(show_spinner=False)
+def _load_dataset_cached(file_bytes, filename):
 
-    if uploaded_file.name.endswith(".csv"):
-        return pd.read_csv(uploaded_file)
+    if filename.lower().endswith(".csv"):
+        return pd.read_csv(BytesIO(file_bytes))
 
-    elif uploaded_file.name.endswith(".xlsx"):
-        return pd.read_excel(uploaded_file)
+    elif filename.lower().endswith(".xlsx"):
+        return pd.read_excel(BytesIO(file_bytes))
 
     else:
         raise ValueError("Unsupported file format.")
+
+
+def load_dataset(uploaded_file):
+
+    file_bytes = uploaded_file.getvalue()
+
+    return _load_dataset_cached(
+        file_bytes,
+        uploaded_file.name
+    )

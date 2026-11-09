@@ -1,25 +1,45 @@
+
 import streamlit as st
 
 
+# =====================================================
+# DATASET METRICS
+# =====================================================
+
+@st.cache_data(show_spinner=False)
 def get_metrics(df):
+
+    numeric_cols = df.select_dtypes(
+        include="number"
+    ).columns
+
+    categorical_cols = df.select_dtypes(
+        include=["object", "category", "string"]
+    ).columns
 
     return {
         "rows": len(df),
+
         "columns": len(df.columns),
-        "missing": df.isnull().sum().sum(),
-        "duplicates": df.duplicated().sum(),
-        "numeric": len(df.select_dtypes(include="number").columns),
-        "categorical": len(
-            df.select_dtypes(
-                include=["object", "category", "string"]
-            ).columns
-        ),
+
+        "missing": int(df.isnull().sum().sum()),
+
+        "duplicates": int(df.duplicated().sum()),
+
+        "numeric": len(numeric_cols),
+
+        "categorical": len(categorical_cols),
+
         "memory": round(
             df.memory_usage(deep=True).sum() / 1024**2,
             2
         ),
     }
 
+
+# =====================================================
+# DISPLAY DATASET HEALTH
+# =====================================================
 
 def show_metrics(metrics):
 
@@ -39,12 +59,12 @@ def show_metrics(metrics):
 
     c3.metric(
         "⚠ Missing",
-        metrics["missing"]
+        f"{metrics['missing']:,}"
     )
 
     c4.metric(
         "🔁 Duplicates",
-        metrics["duplicates"]
+        f"{metrics['duplicates']:,}"
     )
 
     st.divider()

@@ -1,11 +1,8 @@
+
 import streamlit as st
 
 
 def show_preview(df):
-    """
-    Display dataset preview.
-    """
-
     st.subheader("📄 Dataset Preview")
 
     rows = st.selectbox(

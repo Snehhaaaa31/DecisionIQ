@@ -1,41 +1,51 @@
+
 import streamlit as st
 
-from utils.dashboard import *
-
-st.set_page_config(
-    page_title="Dashboard",
-    page_icon="📊",
-    layout="wide"
+from utils.dashboard import (
+    apply_filters,
+    show_kpis,
+    line_chart,
+    bar_chart,
+    pie_chart,
+    correlation,
+    top_records
 )
 
 st.title("📊 Business Dashboard")
 
 if "df" not in st.session_state:
-
     st.warning("Please upload a dataset first.")
-
     st.stop()
 
-df=st.session_state["df"]
+# Retrieve the stored dataset
+df = st.session_state["df"]
 
-df=apply_filters(df)
+# Apply dashboard filters
+filtered_df = apply_filters(df)
 
-show_kpis(df)
+if filtered_df.empty:
+    st.warning("No records found for the selected filters.")
+    st.stop()
 
-c1,c2=st.columns(2)
+# Display KPIs
+show_kpis(filtered_df)
+
+# Charts
+c1, c2 = st.columns(2)
 
 with c1:
-    line_chart(df)
+    line_chart(filtered_df)
 
 with c2:
-    bar_chart(df)
+    bar_chart(filtered_df)
 
-c1,c2=st.columns(2)
+c1, c2 = st.columns(2)
 
 with c1:
-    pie_chart(df)
+    pie_chart(filtered_df)
 
 with c2:
-    correlation(df)
+    correlation(filtered_df)
 
-top_records(df)
+# Top records
+top_records(filtered_df)

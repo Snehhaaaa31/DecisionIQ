@@ -1,16 +1,20 @@
+
 import streamlit as st
 import pandas as pd
 
 
 def show_missing_analysis(df):
-
     st.subheader("⚠️ Missing Value Analysis")
+
+    # Calculate missing values once
+    missing_counts = df.isna().sum()
+    total_missing = int(missing_counts.sum())
 
     missing = pd.DataFrame({
         "Column": df.columns,
-        "Missing Values": df.isnull().sum().values,
+        "Missing Values": missing_counts.values,
         "Missing %": (
-            df.isnull().sum() / len(df) * 100
+            missing_counts / max(len(df), 1) * 100
         ).round(2)
     })
 
@@ -25,14 +29,9 @@ def show_missing_analysis(df):
         hide_index=True
     )
 
-    if missing["Missing Values"].sum() == 0:
-
+    if total_missing == 0:
         st.success("🎉 No missing values found.")
-
     else:
-
-        st.warning(
-            f"Found {missing['Missing Values'].sum()} missing values."
-        )
+        st.warning(f"Found {total_missing} missing values.")
 
     st.divider()
